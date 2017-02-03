@@ -2,10 +2,10 @@
 Discourse plugin with mods for TSL's EdX courses
 
 ## TODO
-- Form working
-- XHR request and error handling
-- Form conditional only on Groups category
-- Style form, modal?
+- Form conditional only on Groups category page
+- Form with XHR and error handling?
+- Extract styles
+- Style form, modal?  Description?
 - Extract config for magic category
 
 
@@ -30,32 +30,22 @@ vagrant ssh -c 'cd /vagrant && bundle exec rails s -b 0.0.0.0'
 
 
 ## Cloning a site
-See https://meta.discourse.org/t/move-your-discourse-instance-to-a-different-server/15721/20 or https://meta.discourse.org/t/is-there-any-way-to-restore-your-site-from-backup-in-the-terminal/42377/2
-
+See [this](https://meta.discourse.org/t/move-your-discourse-instance-to-a-different-server/15721/20) or [this](https://meta.discourse.org/t/is-there-any-way-to-restore-your-site-from-backup-in-the-terminal/42377/2).
 
 Example:
 ```
-opts = {
-  filename: "whateveryourforumiscalled-2016-04-12-153600.tar.gz",
-  publish_to_message_bus: true
-}
-
-SiteSetting.allow_restore = true
-BackupRestore.restore!(Discourse.system_user.id, opts)
-```
-
-Another:
-```
+# backup file needs to be in public/backups/default
+# (this particular folder isn't actually public)
 script/discourse restore <filename.of.the.backup.tar.gz>
 ```
 
-Note that there are several production settings you might need to change, like
-backups to S3 buckets, and HTTPS only.
+Note that after restoring,, there are several production settings you might need to change, like backups to S3 buckets or HTTPS only.
 
+Possibly relevant settings:
 - Files > S3 keys
 - Backups > Disable S3 backups
 
-
+HTTPS warning:
 ```
 WARNING: force_https is enabled in dev
 It is very unlikely you are running HTTPS in dev.

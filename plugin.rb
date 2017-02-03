@@ -47,7 +47,8 @@ after_initialize do
       if @category.save
         log :info, "username: #{current_user.username} created category: #{@category.name}"
         # render_serialized(@category, CategorySerializer)
-        redirect_to '/c/groups'
+        # TODO(kr) should redirect to that group page
+        redirect_to @category.url
       else
         log :info, "render_json_error"
         # return render_json_error(@category) unless @category.save
@@ -58,7 +59,7 @@ after_initialize do
     private
     # Fix some parameters and limit what can be changed by the user
     def params_for_group_category(group_category_id, params, user)
-      user_params = params.slice(:name, :color, :text_color, :topic_template)
+      user_params = params.slice(:name, :color, :text_color)
       locked_params = {
         permissions: {
           everyone: 1
