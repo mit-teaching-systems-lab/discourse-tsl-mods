@@ -2,11 +2,14 @@
 Discourse plugin with mods for TSL's EdX courses
 
 ## TODO
+- redirect isn't working
 - Form conditional only on Groups category page
 - Form with XHR and error handling?
 - Extract styles
 - Style form, modal?  Description?
+- Rename to "cohorts"?
 - Extract config for magic category
+
 
 
 ## Local development
