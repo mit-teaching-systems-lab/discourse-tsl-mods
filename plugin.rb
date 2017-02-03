@@ -35,8 +35,8 @@ after_initialize do
       group_category_name = 'Groups'
       group_category = Category.find_by_name(group_category_name)
       if not group_category
-        log :info, "no group_category"
-        return render status: 404, json: { error: "Learner groups category name not found: #{group_category_name}" }
+        log :info, "no category found for group_category_name: #{group_category_name}"
+        return render status: 500, json: failed_json
       end
 
       # Create the category, limiting the params
@@ -46,20 +46,22 @@ after_initialize do
       @category = Category.create(group_category_params)
       if @category.save
         log :info, "username: #{current_user.username} created category: #{@category.name}"
-        # render_serialized(@category, CategorySerializer)
-        # TODO(kr) should redirect to that group page
-        redirect_to @category.url
+        render status: 200, json: { category_url: @category.url }
       else
         log :info, "render_json_error"
-        # return render_json_error(@category) unless @category.save
-        redirect_to '/c/groups?create_group_category_error'
+        return render_json_error(@category) unless @category.save
       end
     end
 
     private
     # Fix some parameters and limit what can be changed by the user
     def params_for_group_category(group_category_id, params, user)
-      user_params = params.slice(:name, :color, :text_color)
+      user_params = params.slice(*[
+        :name,
+        :description,
+        :color,
+        :text_color
+      ])
       locked_params = {
         permissions: {
           everyone: 1
