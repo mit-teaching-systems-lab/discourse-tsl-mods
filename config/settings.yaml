@@ -1,0 +1,4 @@
+plugins:
+  learner_groups_category_name:
+    default: 'Groups'
+    client: false

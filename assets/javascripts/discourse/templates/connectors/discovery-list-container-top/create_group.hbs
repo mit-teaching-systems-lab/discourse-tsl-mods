@@ -1,0 +1,22 @@
+{{#if true}}
+  <div style="border: 1px solid #ccc; padding: 18px; padding-bottom: 0; background-color: #d1f0ff;">
+    <b>Create group</b>
+    <form action="/category/group" method="post">
+      <input type="hidden" name="topic_template" value="">
+      <input type="hidden" id="create-group-form-hidden-csrf" name="authenticity_token" value="">
+      <input type="hidden" name="text_color" value="000000">
+
+      <input class="ember-text-field" style="padding: 5px;" name="name" value="" placeholder="Group name">
+      <input class="ember-text-field" style="padding: 5px;" name="color" value="0000ff" placeholder="Color">
+      <button
+        type="submit"
+        class="btn btn-primary create"
+        style="margin-top: 10px;"
+      >Create</button>
+    </form>
+  </div>
+  <script>
+    var csrf = $('meta[name="csrf-token"]').attr('content');
+    $('#create-group-form-hidden-csrf').val(csrf);
+  </script>
+{{/if}}
