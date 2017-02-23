@@ -8,18 +8,13 @@
 # ---------------------------------------------------------------
 
 # This uses the `discovery-list-container-top` plugin outlet to 
-# inject a form that allows the user to create a special kind of Group.
+# inject a form that allows the user to create their own sub-categories
+# within a particular category (eg., "Groups").
+enabled_site_setting :learner_groups_category_name
 
-# TODO(kr)
-# Enable site settings in admin UI.
-# See descriptions in files in the `config` folder.
-# enabled_site_setting :learner_groups_category_name
-
-
-# This adds in a new method for creating categories.
-# It can only create categories with the parent category "Groups",
-# doesn't allow any other configuration (eg., permissions),
-# and allows any user to create a category like this.
+# This adds in a new endpoint that any user can use to create a new sub-category.
+# It only permits creating sub-categories with a special parent category, and 
+# doesn't allow any other configuration (eg., permissions).
 after_initialize do
   Discourse::Application.routes.append do
     post 'category/group' => 'categories#create_group'
@@ -28,11 +23,8 @@ after_initialize do
   CategoriesController.class_eval do
     def create_group
       log :info, "CategoriesController#create_group"
-      # TODO(kr) allow SiteSetting, not sure why this doesn't work
-      # group_category_name = SiteSetting.learner_groups_category_name
-
       # Check for special "Groups" category first
-      group_category_name = 'Groups'
+      group_category_name = SiteSetting.learner_groups_category_name
       group_category = Category.find_by_name(group_category_name)
       if not group_category
         log :info, "no category found for group_category_name: #{group_category_name}"
@@ -46,7 +38,7 @@ after_initialize do
       @category = Category.create(group_category_params)
       if @category.save
         log :info, "username: #{current_user.username} created category: #{@category.name}"
-        render status: 200, json: { category_url: @category.url }
+        return render status: 200, json: { category_url: @category.url }
       else
         log :info, "render_json_error"
         return render_json_error(@category) unless @category.save
@@ -55,21 +47,22 @@ after_initialize do
 
     private
     # Fix some parameters and limit what can be changed by the user
-    def params_for_group_category(group_category_id, params, user)
-      user_params = params.slice(*[
+    def params_for_group_category(group_category_id, category_params, user)
+      whitelisted_params = [
         :name,
         :description,
         :color,
         :text_color
-      ])
-      locked_params = {
+      ]
+      fixed_params = {
         permissions: {
           everyone: 1
         },
-        parent_category_id: group_category_id
+        parent_category_id: group_category_id,
+        user: user
       }
 
-      user_params.merge(locked_params).merge(user: user)
+      category_params.slice(*whitelisted_params).merge(fixed_params)
     end
 
     def log(method_symbol, text)

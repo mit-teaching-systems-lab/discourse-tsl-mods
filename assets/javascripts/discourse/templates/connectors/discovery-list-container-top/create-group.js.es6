@@ -1,6 +1,6 @@
-import { ajax } from 'discourse/lib/ajax';
-import { popupAjaxError } from 'discourse/lib/ajax-error';
-import { withPluginApi } from 'discourse/lib/plugin-api';
+import {ajax} from 'discourse/lib/ajax';
+import {popupAjaxError} from 'discourse/lib/ajax-error';
+import {withPluginApi} from 'discourse/lib/plugin-api';
 
 
 // For debugging
@@ -17,18 +17,27 @@ function setupComponent(args, component) {
 
 // Check whether we should show the form or not, and add the click handler
 function onPageChange(url, title) {
-  var $containerEl = $('#create-group-form-container');
-  if (window.location.pathname !== '/c/groups') {
-    log('group:hide');
-    $containerEl.hide();
-    $containerEl.find('button').off('click');
-    return;
-  }
+  const $containerEl = $('#create-group-form-container');
+  const learnerGroupsCategoryName = Discourse.SiteSettings.learner_groups_category_name;
+  const learnerGroupsUrl = `/c/${learnerGroupsCategoryName.toLowerCase()}`;
 
-  // Show form and add click handler
+  if (url === learnerGroupsUrl) {
+    show($containerEl);
+  } else {
+    hide($containerEl);
+  }
+}
+
+function show($containerEl) {
   log('group:show');
   $containerEl.find('button').on('click', onCreateGroupClicked.bind(null, $containerEl));
   $containerEl.show();
+}
+
+function hide($containerEl) {
+  log('group:hide');
+  $containerEl.hide();
+  $containerEl.find('button').off('click');
 }
 
 

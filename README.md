@@ -16,7 +16,8 @@ You can develop with Vagrant ([see Discourse docs](https://github.com/discourse/
 Example (also using `discourse-edx-lti`):
 ```
 rm -rf tmp/cache && \
-rm -rf ./plugins/discourse-edx-lti/ && \
+rm -rf plugins && \
+git checkout head -- plugins && \
 rsync -av --exclude .git \
   ~/github/mit-teaching-systems-lab/discourse-edx-lti \
   ./plugins/ && \
