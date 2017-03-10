@@ -13,6 +13,12 @@ Discourse plugin with mods for TSL's EdX courses
 ## Local development
 You can develop with Vagrant ([see Discourse docs](https://github.com/discourse/discourse/blob/master/docs/VAGRANT.md)).  As you develop, clear the ERB cache, copy this repository to the `plugins` folder and restart Rails to see changes.
 
+On OSX you may also need to enable NFS for volume sharing, by adding an option to the Discourse Vagrantfile:
+
+```
+config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", nfs: true
+```
+
 Example (also using `discourse-edx-lti`):
 ```
 rm -rf tmp/cache && \

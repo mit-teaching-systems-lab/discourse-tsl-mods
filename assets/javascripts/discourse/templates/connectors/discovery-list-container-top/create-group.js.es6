@@ -31,7 +31,7 @@ function onPageChange(url, title) {
 
 function show($containerEl) {
   log('group:show');
-  setupColorPicker($containerEl.find('input.color');
+  setupColorPicker($containerEl.find('input.color'));
   $containerEl.find('button').on('click', onCreateGroupClicked.bind(null, $containerEl));
   $containerEl.show();
 }
