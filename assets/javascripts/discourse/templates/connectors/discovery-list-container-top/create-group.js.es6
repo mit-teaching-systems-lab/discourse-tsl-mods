@@ -6,7 +6,7 @@ import {withPluginApi} from 'discourse/lib/plugin-api';
 
 // For debugging
 function log() {
-  console.log.apply(console, arguments);
+  // console.log.apply(console, arguments);
 }
 
 
@@ -92,32 +92,18 @@ function setupColorPicker($colorPickerEl) {
     // Don't store selections in palette
     showSelectionPalette: false,
     selectionPalette: [],
-    maxSelectionSize: 0,
-
-  
-    preferredFormat: "hex",
-    localStorageKey: "spectrum.demo",
-
-    hide: onColorHide,
-    change: onColorChange
+    maxSelectionSize: 0
   });
-}
-
-function onColorHide(color) {
-  console.log('hide', color);
-}
-
-function onColorChange(color) {
-  console.log('change', color);
 }
 
 function onCreateGroupClicked($containerEl, e) {
   log('group:onCreateGroupClicked');
   // Read data from the form
-  var formData = {
+  const color = $containerEl.find('.color').spectrum('get').toHex();
+  const formData = {
     name: $containerEl.find('.name').val(),
     description: $containerEl.find('.description').val(),
-    color: $containerEl.find('.color').spectrum('get'),
+    color: color,
     text_color: '000000',
     csrf: $('meta[name="csrf-token"]').attr('content')
   };
