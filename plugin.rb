@@ -12,6 +12,10 @@
 # within a particular category (eg., "Groups").
 enabled_site_setting :learner_groups_category_name
 
+# Include some JS and CSS assets for http://bgrins.github.io/spectrum/
+register_asset "javascripts/spectrum-1.8.0.min.js"
+register_asset "stylesheets/spectrum-1.8.0.min.css"
+
 # This adds in a new endpoint that any user can use to create a new sub-category.
 # It only permits creating sub-categories with a special parent category, and 
 # doesn't allow any other configuration (eg., permissions).
