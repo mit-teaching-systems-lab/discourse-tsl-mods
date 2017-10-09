@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.3.2
+# version: 0.3.3
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
@@ -37,7 +37,8 @@ after_initialize do
 
       # Create the category, limiting the params
       # This is adapted from CategoriesController#create
-      group_category_params = params_for_group_category(group_category.id, category_params, current_user)
+      request_params = params
+      group_category_params = params_for_group_category(group_category.id, request_params, current_user)
       log :info, "group_category_params: #{group_category_params.inspect}"
       @category = Category.create(group_category_params)
       if not @category.save
@@ -62,7 +63,7 @@ after_initialize do
 
     private
     # Fix some parameters and limit what can be changed by the user
-    def params_for_group_category(group_category_id, category_params, user)
+    def params_for_group_category(group_category_id, request_params, user)
       whitelisted_params = [
         :name,
         :description,
@@ -77,7 +78,7 @@ after_initialize do
         user: user
       }
 
-      category_params.slice(*whitelisted_params).merge(fixed_params)
+      request_params.slice(*whitelisted_params).merge(fixed_params)
     end
 
     # This ignores `method_symbol` and logs all methods as errors, to
