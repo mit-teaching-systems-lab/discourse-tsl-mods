@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.3.0
+# version: 0.3.1
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
@@ -47,7 +47,7 @@ after_initialize do
 
       # Update the category definition topic and post so that the "about"
       # copy says what the user passed as the "description"
-      if group_category_params.has_key?(:description)
+      if group_category_params[:description]
         log :info, "Attempting to revise category description..."
         if not @category.revise(current_user, raw: group_category_params[:description])
           log :info, "@category.revise failed"
@@ -82,7 +82,7 @@ after_initialize do
 
     def log(method_symbol, text)
       msg = "CategoriesController#create_group, #{text}"
-      Rails.logger.error(msg)
+      Rails.logger.send(method_symbol, msg)
       puts msg
     end
   end
