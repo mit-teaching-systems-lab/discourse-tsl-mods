@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.3.1
+# version: 0.3.2
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
@@ -80,9 +80,12 @@ after_initialize do
       category_params.slice(*whitelisted_params).merge(fixed_params)
     end
 
+    # This ignores `method_symbol` and logs all methods as errors, to
+    # ensure they show up in the /logs UI.  Not sure why info etc. don't
+    # show up there, would be good to fix.
     def log(method_symbol, text)
       msg = "CategoriesController#create_group, #{text}"
-      Rails.logger.send(method_symbol, msg)
+      Rails.logger.error(msg)
       puts msg
     end
   end
