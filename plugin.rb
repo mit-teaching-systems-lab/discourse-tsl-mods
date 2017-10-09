@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.2.0
+# version: 0.3.0
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
@@ -40,13 +40,24 @@ after_initialize do
       group_category_params = params_for_group_category(group_category.id, category_params, current_user)
       log :info, "group_category_params: #{group_category_params.inspect}"
       @category = Category.create(group_category_params)
-      if @category.save
-        log :info, "username: #{current_user.username} created category: #{@category.name}"
-        return render status: 200, json: { category_url: @category.url }
-      else
-        log :info, "render_json_error"
-        return render_json_error(@category) unless @category.save
+      if not @category.save
+        log :info, "@category.save failed"
+        return render_json_error(@category)
       end
+
+      # Update the category definition topic and post so that the "about"
+      # copy says what the user passed as the "description"
+      if group_category_params.has_key?(:description)
+        log :info, "Attempting to revise category description..."
+        if not @category.revise(current_user, raw: group_category_params[:description])
+          log :info, "@category.revise failed"
+          return render_json_error(@category)
+        end
+      end
+
+      # Log and return success
+      log :info, "username: #{current_user.username} created category: #{@category.name}"
+      return render status: 200, json: { category_url: @category.url }
     end
 
     private

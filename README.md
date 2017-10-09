@@ -61,3 +61,12 @@ Without HTTPS your session cookie will not work
 Try: bin/rails c
 SiteSetting.force_https = false
 ```
+
+## Other features and setup
+- Automatic backups: https://meta.discourse.org/t/configure-automatic-backups-for-discourse/14855
+- CDN: https://meta.discourse.org/t/enable-a-cdn-for-your-discourse/14857
+- Reply via email: https://meta.discourse.org/t/set-up-reply-via-email-support-e-mail/14003
+- Text customizations
+- Back to EdX button
+- Accessibility color contrast improvements
+- Rollbar
