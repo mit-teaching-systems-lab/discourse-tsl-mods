@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.3.3
+# version: 0.3.4
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
@@ -40,7 +40,7 @@ after_initialize do
       request_params = params
       group_category_params = params_for_group_category(group_category.id, request_params, current_user)
       log :info, "group_category_params: #{group_category_params.inspect}"
-      @category = Category.create(group_category_params)
+      @category = Category.new(group_category_params)
       if not @category.save
         log :info, "@category.save failed"
         return render_json_error(@category)
@@ -48,9 +48,10 @@ after_initialize do
 
       # Update the category definition topic and post so that the "about"
       # copy says what the user passed as the "description"
-      if group_category_params[:description]
+      group_description = request_params[:description]
+      if group_description
         log :info, "Attempting to revise category description..."
-        if not @category.revise(current_user, raw: group_category_params[:description])
+        if not @category.revise(current_user, raw: group_description)
           log :info, "@category.revise failed"
           return render_json_error(@category)
         end
@@ -66,7 +67,6 @@ after_initialize do
     def params_for_group_category(group_category_id, request_params, user)
       whitelisted_params = [
         :name,
-        :description,
         :color,
         :text_color
       ]
