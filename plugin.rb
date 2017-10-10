@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.3.6
+# version: 0.3.7
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
@@ -50,9 +50,13 @@ after_initialize do
       group_description = params[:description]
       if group_description
         log :info, "Attempting to revise category description..."
-        if not @category.revise(current_user, raw: group_description)
-          log :info, "@category.revise failed"
-          return render_json_error(@category)
+        definition_post = @category.visible_posts.try(:first)
+        if definition_post
+          log :info, "Found category description post..."
+          if not definition_post.revise(current_user, raw: group_description)
+            log :info, "@category.revise failed"
+            return render_json_error(@category)
+          end
         end
       end
 
