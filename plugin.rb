@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.3.5
+# version: 0.3.6
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
@@ -37,8 +37,7 @@ after_initialize do
 
       # Create the category, limiting the params
       # This is adapted from CategoriesController#create
-      request_params = params
-      group_category_params = params_for_group_category(group_category.id, request_params, current_user.id)
+      group_category_params = params_for_group_category(group_category.id, category_params, current_user.id)
       log :info, "group_category_params: #{group_category_params.inspect}"
       @category = Category.new(group_category_params)
       if not @category.save
@@ -48,7 +47,7 @@ after_initialize do
 
       # Update the category definition topic and post so that the "about"
       # copy says what the user passed as the "description"
-      group_description = request_params[:description]
+      group_description = params[:description]
       if group_description
         log :info, "Attempting to revise category description..."
         if not @category.revise(current_user, raw: group_description)
@@ -64,7 +63,7 @@ after_initialize do
 
     private
     # Fix some parameters and limit what can be changed by the user
-    def params_for_group_category(group_category_id, request_params, user_id)
+    def params_for_group_category(group_category_id, category_params, user_id)
       whitelisted_params = [
         :name,
         :color,
@@ -78,7 +77,7 @@ after_initialize do
         user_id: user_id
       }
 
-      request_params.slice(*whitelisted_params).merge(fixed_params)
+      category_params.slice(*whitelisted_params).merge(fixed_params)
     end
 
     # This ignores `method_symbol` and logs all methods as errors, to
