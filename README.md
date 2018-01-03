@@ -70,3 +70,46 @@ SiteSetting.force_https = false
 - Back to EdX button
 - Accessibility color contrast improvements
 - Rollbar
+
+## Data analysis
+Grab a CSV of all data for a category:
+```ruby
+require 'csv'
+
+# Returns CSV string
+def category_to_csv(category)
+  keys = topic_keys  
+  CSV.generate do |csv|
+    csv << keys
+    category.topics.each {|topic| csv << topic_to_array(topic, keys) }
+  end
+end
+
+def topic_hash(topic)
+  {
+    url: topic.url,
+    posts_count: topic.posts.size,
+    posts_combined_text: topic.posts.map(&:cooked).join("\n\n"),
+    posts_combined_attachment_count: topic.posts.flat_map(&:attachment_count).sum, # this is a slow operation (adding it adds ~10 seconds to run this for a whole course)
+    users_count: (topic.posts.map(&:user_id) + [topic.user_id]).uniq.size
+  }.merge(topic.as_json)
+end
+
+def topic_keys
+  topic_hash(Topic.first).keys
+end
+
+def topic_to_array(topic, keys)
+  hash = topic_hash(topic)
+  keys.map {|key| hash[key]}
+end
+
+
+# Output a CSV with these headers:
+# url,posts_count,posts_combined_text,users_count,id,title,last_posted_at,created_at,updated_at,views,posts_count,user_id,last_post_user_id,reply_count,featured_user1_id,featured_user2_id,featured_user3_id,avg_time,deleted_at,highest_post_number,image_url,like_count,incoming_link_count,category_id,visible,moderator_posts_count,closed,archived,bumped_at,has_summary,vote_count,archetype,featured_user4_id,notify_moderators_count,spam_count,pinned_at,score,percent_rank,subtype,slug,deleted_by_id,participant_count,word_count,excerpt,pinned_globally,pinned_until,fancy_title,highest_staff_post_number,featured_link
+def print_csv(category_slug)
+  category = Category.where(slug: category_slug).try(:first)
+  puts category_to_csv(category)
+  nil
+end
+```
