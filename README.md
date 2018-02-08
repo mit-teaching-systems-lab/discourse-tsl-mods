@@ -1,34 +1,14 @@
 # discourse-tsl-mods
-Discourse plugin with mods for TSL's EdX courses.  It contains three main pieces:
+Discourse plugin with mods for TSL's EdX courses.  It contains a few different pieces:
 
-- Adds a feature for learners to create their own groups
+- Forces SSL
 - Sets backups to be daily by default
-- Adds a layout for a banner post
-- Other theming
+- Adds a feature for learners to create their own groups
+- Adds a Back to EdX button
+- Adds CSS for a banner post with a particular layout
 
-## Groups
-### Learner user experience
-#### 1. Learner sees a Groups category
-![category](docs/category.png)
-
-#### 2. Learner sees Groups that other learners have created
-![groups](docs/groups.png)
-
-#### 3. Learner can create their own Group
-![create](docs/create.png)
-
-
-### Course author user experience
-#### 1. Author sets the name of the special "Groups" category
-![setting](docs/author-setting.png)
-
-#### 2. Author creates a new category with that name
-![create category](docs/author-create.png)
-![name category](docs/author-name.png)
-
-#### 3. Learners can now create their own groups
-![create new group](docs/author-done.png)
-
+## Force SSL
+See [config/settings.yml](config/settings.yml).
 
 ## Backups
 See [this post](https://meta.discourse.org/t/configure-automatic-backups-for-discourse/14855).
@@ -66,6 +46,31 @@ Backing up to S3 is recommended, along with creating a new IAM user with a limit
     ]
 }
 ```
+
+## Groups
+### Learner user experience
+#### 1. Learner sees a Groups category
+![category](docs/category.png)
+
+#### 2. Learner sees Groups that other learners have created
+![groups](docs/groups.png)
+
+#### 3. Learner can create their own Group
+![create](docs/create.png)
+
+
+### Course author user experience
+#### 1. Author sets the name of the special "Groups" category
+![setting](docs/author-setting.png)
+
+#### 2. Author creates a new category with that name
+![create category](docs/author-create.png)
+![name category](docs/author-name.png)
+
+#### 3. Learners can now create their own groups
+![create new group](docs/author-done.png)
+
+
 
 ## Banner
 Create a post and then pin it as a banner.  Doing this requires setting the whitespace exactly as below; this is somewhat brittle but the idea is to get a banner post that looks like this:

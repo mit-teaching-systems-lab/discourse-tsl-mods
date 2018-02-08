@@ -1,11 +1,15 @@
 # ---------------------------------------------------------------
 # name:  discourse-tsl-mods
 # about: Discourse plugin with mods for TSL's EdX courses Edit
-# version: 0.4.0
+# version: 0.5.0
 # author: MIT Teaching Systems Lab
 # url: https://github.com/mit-teaching-systems-lab/discourse-tsl-mods
 # required_version: 1.8.0.beta4
 # ---------------------------------------------------------------
+
+# Include CSS files for theming
+register_asset "stylesheets/banner-layout.css"
+register_asset "stylesheets/image-layout-hack.css"
 
 # This uses the `discovery-list-container-top` plugin outlet to 
 # inject a form that allows the user to create their own sub-categories
