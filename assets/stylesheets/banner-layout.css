@@ -1,0 +1,54 @@
+/* colors */
+#banner {
+  border: 1px solid #ccc;
+  background-color: white !important;
+  box-shadow: none !important;
+}
+
+#banner > .close {
+  color: #aaa;
+}
+
+.close {
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  align-items: flex-end;
+  justify-content: flex-end
+}
+
+/* layout */
+#banner-content > div {
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  width: 100%;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.lightbox-wrapper {
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 5px;
+  width: 246px;
+  height: 136px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* image */
+.banner-image {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+/* text block */
+#banner-content > div > div  {
+  flex: 1;
+}
+
+/* title */
+#banner-content > div > div > div {
+  font-weight: bold;
+  font-size: 1.17em;
+}
