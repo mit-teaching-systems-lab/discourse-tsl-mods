@@ -4,7 +4,7 @@ Discourse plugin with mods for TSL's EdX courses.  It contains three main pieces
 - Adds a feature for learners to create their own groups
 - Sets backups to be daily by default
 - Adds a layout for a banner post
-- 
+- Other theming
 
 ## Groups
 ### Learner user experience
@@ -67,7 +67,26 @@ Backing up to S3 is recommended, along with creating a new IAM user with a limit
 }
 ```
 
-## Theming
+## Banner
+Create a post and then pin it as a banner.  Doing this requires setting the whitespace exactly as below; this is somewhat brittle but the idea is to get a banner post that looks like this:
+
+![banner](docs/banner.png)
+
+Here's the post content, which needs to be exactly like this for the CSS in [stylesheets/banner-layout.css](stylesheets/banner-layout.css) to work correctly:
+```
+<div><img alt="LIIS XQ Edition Course Image" class="banner-image" src="/uploads/default/optimized/1X/8cd66953c665339c56b61799f3278ee5ae159421_1_246x136.png" width="246" height="136">
+
+<div><div>Welcome to Launching Innovation in Schools!</div>
+
+Every great teacher and every great school constantly work towards creating better learning conditions for students. This education course is for school leaders of all kinds (from teacher-leaders to principals to superintendents) who are launching innovation in schools—starting new efforts to work together to improve teaching and learning. 
+
+
+* See [**Unit 0**](https://launching-innovation-discourse.teachingsystemslab.org/c/unit-0-welcome) for an introduction to some key frameworks of the course and to meet your classmates
+* **[Look at recent posts](https://launching-innovation-discourse.teachingsystemslab.org/latest)**
+
+</div>
+</div>
+```
 Add this to a theme in the `Desktop` > `After Header` section, replacing the button text and course URL for your course:
 ```
 <a
