@@ -4,9 +4,9 @@ plugins:
     client: true
 
 basic:
-  top_menu: "categories|latest|new|unread|top"
-  post_menu_hidden_items: ""
-  share_links: ""
+  top_menu: 'categories|latest|new|unread|top'
+  post_menu_hidden_items: ''
+  share_links: ''
   fixed_category_positions: true
   enable_badges: false
 
@@ -43,7 +43,7 @@ email:
   disable_digest_emails: true
 
 files:
-  authorized_extensions: "jpg|jpeg|png|gif|pdf"
+  authorized_extensions: 'jpg|jpeg|png|gif|pdf'
   allow_animated_avatars: true
 
 trust:
@@ -59,14 +59,14 @@ spam:
   notify_mods_when_user_blocked: true
   min_first_post_typing_time: 500
 
-rate:
+rate_limits:
   max_topics_in_first_day: 100
   max_replies_in_first_day: 100
 
 backups:
   backup_frequency: 1
 
-other:
+uncategorized:
   max_similar_results: 0
   minimum_topics_similar: 12000
   educate_until_posts: 0
@@ -77,3 +77,9 @@ other:
   show_create_topics_notice: false
   bootstrap_mode_min_users: 0
   automatically_unpin_topics: false
+
+user_preferences:
+  default_email_always: true
+  default_other_notification_level_when_replying: 3
+  default_other_external_links_in_new_tab: true
+  default_topics_automatic_unpin: false
