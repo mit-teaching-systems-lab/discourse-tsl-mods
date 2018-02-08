@@ -3,8 +3,83 @@ plugins:
     default: 'Groups'
     client: true
 
-backups:
-  backup_frequency: 1
+basic:
+  top_menu: 'categories|latest|new|unread|top'
+  post_menu_hidden_items: ''
+  share_links: ''
+  fixed_category_positions: true
+  enable_badges: false
+
+login:
+  enable_signup_cta: false
+  hide_email_address_taken: true
+
+groups:
+  enable_group_directory: false
+
+posting:
+  min_post_length: 3
+  min_first_post_length: 3
+  min_private_message_post_length: 3
+  body_min_entropy: 0
+  min_topic_title_length: 3
+  title_min_entropy: 3
+  allow_uppercase_posts: true
+  allow_uncategorized_posts: false
+  min_title_similar_length: 12000
+  post_edit_time_limit: 0
+  delete_removed_posts_after: 4
+  newuser_max_replies_per_topic: 5
+  newuser_max_mentions_per_post: 5
+  newuser_max_links: 10
+  newuser_max_images: 10
+  newuser_max_attachments: 5
+  display_name_on_posts: true
+  show_time_gap_days: 365
+  warn_reviving_old_topics: 0
+  auto_close_messages_post_count: 0
+
+email:
+  disable_digest_emails: true
+
+files:
+  authorized_extensions: 'jpg|jpeg|png|gif|pdf'
+  allow_animated_avatars: true
+
+trust:
+  min_trust_to_send_messages: 0
+  tl1_requires_topics_enabled: 0
+  tl1_requires_read_posts: 0
+  tl1_requires_time_spent_mins: 0
 
 security:
   force_https: true
+
+spam:
+  notify_mods_when_user_blocked: true
+  min_first_post_typing_time: 500
+
+rate_limits:
+  max_topics_in_first_day: 100
+  max_replies_in_first_day: 100
+
+backups:
+  backup_frequency: 1
+
+uncategorized:
+  max_similar_results: 0
+  minimum_topics_similar: 12000
+  educate_until_posts: 0
+  sequential_replies_threshold: 1542
+  get_a_room_threshold: 1000000
+  dominating_topic_minimum_percent: 90
+  disable_avatar_education_message: true
+  show_create_topics_notice: false
+  bootstrap_mode_min_users: 0
+  automatically_unpin_topics: false
+
+user_preferences:
+  default_email_always: true
+  default_other_notification_level_when_replying: 3
+  default_other_external_links_in_new_tab: true
+  default_topics_automatic_unpin: false

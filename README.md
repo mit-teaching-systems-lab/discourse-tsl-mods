@@ -71,8 +71,11 @@ Backing up to S3 is recommended, along with creating a new IAM user with a limit
 ![create new group](docs/author-done.png)
 
 
+## Back to EdX button
 
-## Banner
+
+
+## Banner layout
 Create a post and then pin it as a banner.  Doing this requires setting the whitespace exactly as below; this is somewhat brittle but the idea is to get a banner post that looks like this:
 
 ![banner](docs/banner.png)
