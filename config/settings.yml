@@ -1,7 +1,7 @@
-users:
-  username_change_period: 0
-
 plugins:
   learner_groups_category_name:
     default: 'Groups'
     client: true
+
+backups:
+  backup_frequency: 1
