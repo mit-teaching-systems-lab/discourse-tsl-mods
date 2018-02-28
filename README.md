@@ -67,7 +67,10 @@ Backing up to S3 is recommended, along with creating a new IAM user with a limit
 ![create category](docs/author-create.png)
 ![name category](docs/author-name.png)
 
-#### 3. Learners can now create their own groups
+#### 3. Author sets that category to "show subcategory list above topics in this category"
+![settings show subcategory](docs/author-settings.png)
+
+#### 4. Learners can now create their own groups
 ![create new group](docs/author-done.png)
 
 
